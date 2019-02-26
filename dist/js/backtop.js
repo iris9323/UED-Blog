@@ -1,0 +1,1 @@
+"use strict";function backTop(n){n.on("click",function(){return $("html,body").animate({scrollTop:0},"slow","swing"),!1})}

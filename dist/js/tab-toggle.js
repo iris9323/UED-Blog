@@ -1,0 +1,1 @@
+"use strict";function tabToggle(n,i){n.click(function(){$(this).addClass(i).siblings().removeClass(i).parent().next().children().eq($(this).index()).fadeIn("normal","linear").siblings().fadeOut("normal","linear")})}

@@ -1,0 +1,156 @@
+/*body*/
+
+body {
+    overflow-x: hidden;
+}
+
+
+
+/*banner*/
+
+.banner {
+    position: relative;
+    /* height: 760px; */
+    background: url(../images/banner.png) center center no-repeat;
+    background-size: cover;
+}
+
+
+
+/*slogan*/
+
+.banner .slogan {
+    position: absolute;
+    top: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+}
+
+.banner .slogan .h1 {
+    font-family: BebasNeue;
+}
+
+.banner .slogan .h1:first-child {
+    position: relative;
+}
+
+.banner .slogan .h1:first-child i {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 80px;
+    height: 2px;
+    transform: translateX(-50%);
+    background-image: linear-gradient(to left, #ffff00, #ffb400);
+}
+
+.banner .slogan .h6 {
+    font-family: Helvetica;
+}
+
+.banner .mouse {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    width: 22px;
+    margin-left: -11px;
+    animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    25% {
+        opacity: .65;
+    }
+    50% {
+        opacity: .25;
+    }
+    75% {
+        opacity: .65;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+/*content*/
+
+.content {
+    background-color: #f3f7f6;
+    padding-bottom: 30px;
+}
+
+
+
+/*content tab*/
+
+.content .content-tab {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding: 50px 0;
+    margin: 0;
+    list-style: none;
+}
+
+.content .content-tab li {
+    box-sizing: border-box;
+    float: left;
+    padding: 2px;
+    height: 40px;
+    line-height: 40px;
+    color: #666;
+    cursor: pointer;
+}
+
+@media (max-width: 380px) {
+    .content .content-tab li {
+        line-height: 1.2;
+    }
+}
+
+.content .content-tab li+li {
+    margin-left: 30px;
+}
+
+.content .content-tab li:hover,
+.content .content-tab .content-current {
+    border-bottom: 2px solid #4962dc;
+    color: #5747da;
+}
+
+
+
+/*two lines*/
+
+.content .content-tab::after,
+.content .content-tab::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 354px;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.content .content-tab::after {
+    right: 4px;
+}
+
+.content .content-tab::before {
+    left: 4px;
+}
+
+@media screen and (max-width: 1200px) {
+    .content .content-tab::after {
+        right: -9999px;
+    }
+    .content .content-tab::before {
+        left: -9999px;
+    }
+}

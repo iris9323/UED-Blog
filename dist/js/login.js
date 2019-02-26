@@ -1,0 +1,1 @@
+"use strict";$(function(){$(".content-login .btn").click(function(){var t=$(".tel"),n=$(".password"),i=$.trim(t.val()),l=$.trim(n.val());""!==i?""!==l?l=i="":alert("密码不能为空"):alert("电话不能为空")})});

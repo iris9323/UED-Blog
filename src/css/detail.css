@@ -1,0 +1,151 @@
+/*body*/
+
+body {
+    overflow-x: hidden;
+}
+
+
+/*public-header*/
+
+.public-header .navbar {
+    background-image: linear-gradient(to left, #6a22d8, #4d5bdc);
+    opacity: .9;
+}
+
+
+/*article*/
+
+.article {
+    padding-top: 100px;
+}
+
+.article h3 {
+    color: #333;
+}
+
+.article .article-info {
+    padding-bottom: 40px;
+    color: #999;
+}
+
+.article .article-info .category,
+.article .article-info .author {
+    color: #5747d9;
+}
+
+.article .article-content {
+    color: #333;
+    line-height: 1.8;
+}
+
+.article .article-content h4:first-of-type {
+    padding-top: 30px;
+}
+
+.article .article-content h4:last-of-type {
+    padding-top: 20px;
+}
+
+
+/*comment*/
+
+.comment {
+    padding-top: 50px;
+}
+
+
+/*all-comments*/
+
+.comment .all-comments {
+    position: relative;
+    padding: 30px 0 40px;
+}
+
+.comment .all-comments::before,
+.comment .all-comments::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 60%;
+    height: 2px;
+    background-color: #e4e4e4;
+}
+
+.comment .all-comments::before {
+    top: 0;
+}
+
+.comment .all-comments::after {
+    bottom: 0;
+}
+
+.comment .all-comments h3 {
+    padding-bottom: 10px;
+}
+
+.comment .all-comments .media-body .media-heading {
+    color: #666;
+}
+
+.comment .all-comments .media-body p {
+    width: 80%;
+    color: #333;
+}
+
+
+/*post commment*/
+
+.comment .post-comment {
+    position: relative;
+    padding-bottom: 30px;
+}
+
+.comment .post-comment h3 {
+    padding-top: 20px;
+    color: #333;
+}
+
+.comment .post-comment form {
+    width: 60%;
+}
+
+.comment .post-comment textarea {
+    height: 120px;
+    min-height: 80px;
+    resize: vertical;
+}
+
+.comment .post-comment input {
+    margin: 15px 0;
+}
+
+.comment .post-comment button {
+    color: #666;
+}
+
+.comment .post-comment::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60%;
+    height: 2px;
+    background-color: #c0c0c0;
+}
+
+
+/*next prev*/
+
+.comment .change {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0;
+}
+
+.comment .change a {
+    color: #5747d9;
+}
+
+.comment .change a:hover {
+    text-decoration: none;
+}

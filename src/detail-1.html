@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/public-header.css">
+    <link rel="stylesheet" href="./css/detail.css">
+    <link rel="stylesheet" href="./css/public-bottom.css">
+</head>
+
+<body>
+    <!-- public-header -->
+    <div class="public-header">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                        aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        <img src="./images/logo.png" alt="logo" width="16">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="./index.html"><span>首页<i class="line"></i></span></a></li>
+                        <li><a href="./article.html"><span>文章<i class="line"></i></span></a></li>
+                        <li><a href="./about.html"><span>关于<i class="line"></i></span></a></li>
+                        <li><a href="./brand.html"><span>品牌<i class="line"></i></span></a></li>
+                        <li><a href="./recruit.html"><span>招聘<i class="line"></i></span></a></li>
+                        <li><a href="./login.html"><span>登录<i class="line"></i></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- article -->
+    <div class="article">
+        <div class="container">
+            <h3 class="text-center h3">从实现购物车案例轻松入门vue</h3>
+            <p class="article-info text-center h6"> In：<span class="category">前端开发</span> on：2017-08-22 by：<span class="author">ugu</span></p>
+            <div class="article-content h5">
+                <p>随着<a href="https://medium.com/dailyjs/the-deepest-reason-why-modern-javascript-frameworks-exist-933b86ebc445">业务场景复杂度</a>的提升，越来越多的开发者选择使用现代JavaScript框架来组织他们的web应用程序，例如Backbone，Angular，Vue...。如果你难以抉择，可以通过大名鼎鼎的<a
+                        href="https://github.com/tastejs/todomvc">TodoMVC</a>，找到适合自己的MV*框架。 本篇文章的目的并不是通过ToDoList来帮助你快速感知一门框架的优劣，而是使用Vue来实现电商网站常见的购物车效果，旨在帮助你迅速熟悉Vue的开发模式。
+                </p>
+                <h4 class="h4">功能描述</h4>
+                <p>
+                    <ul>
+                        <li>商品数量增减（数量为0时，不能继续减少）</li>
+                        <li>移除商品</li>
+                        <li>全选、单选和多选商品（自动判断是否全选）</li>
+                        <li>计算总价（只要状态改变就自动计算总价）</li>
+                    </ul>
+                </p>
+                <h4 class="h4">预期效果</h4>
+                <p>通过购物车案例，你将迅速了解Vue的开发模式，并应用到企业开发上。诸如：</p>
+                <p>
+                    <ul>
+                        <li>数据绑定</li>
+                        <li>插值表达式</li>
+                        <li>条件渲染</li>
+                        <li>循环渲染</li>
+                        <li>计算属性（set和get的用法）</li>
+                        <li>事件绑定</li>
+                        <li>表单绑定</li>
+                    </ul>
+                </p>
+                <p>是不是麻雀虽小，五脏俱全。</p>
+                <h4 class="h4">框架搭建</h4>
+                <p>在使用Vue之前，你需要先安装Vue。</p>
+                <pre>$ npm i vue</pre>
+                <p>当然你也可以使用CDN加速服务，例如：https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js。建议在开发环境引入未压缩版本的Vue.js，不然你会失去常见错误的控制台警告。</p>
+                <p>引入之后，便会在全局中暴露出Vue构造函数，而每个Vue应用程序都是通过用Vue构造函数创建一个新的Vue实例开始的。例如：var app = new Vue()，其中app就是创建的Vue实例。</p>
+                <p>每一个Vue实例都可以传入一个el选项，其值可以CSS选择器或使用JavaScript来指定需要挂载的DOM元素。</p>
+                <p>此时你的HTML结构应该是这样：</p>
+                <pre>&lt;body&gt;
+    &lt;div id="app"&gt;&lt;/div&gt;
+    &lt;script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"&gt;&lt;/script&gt;	
+    &lt;script&gt;
+        const vm = new Vue({
+            el:"#app"
+        })
+    &lt;/script&gt;
+&lt;/body&gt;</pre>
+                <p>这就表示创建一个叫vm的Vue实例，并且接管id为app的DOM元素内的所有内容。</p>
+                <p>好了，这样基本的开发框架已经搭好了。</p>
+                <h4 class="h4">着手开发</h4>
+                <p><strong>步骤一：搭建HTML和CSS</strong></p>
+                <p>由于只是demo案例，所以不会着重于CSS和HTML，而是专注于功能上的实现。</p>
+                <pre>table {
+    border-collapse: collapse;
+}
+th,tr,td {
+    border: 1px solid #ccc;
+}
+td {
+    padding: 5px;
+}</pre>
+                <pre>
+&lt;div id="app"&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;th&gt;id&lt;/th&gt;
+            &lt;th&gt;商品名称&lt;/th&gt;
+            &lt;th&gt;商品单价&lt;/th&gt;
+            &lt;th&gt;购买数量&lt;/th&gt;
+            &lt;th&gt;操作&lt;/th&gt;
+            &lt;th&gt;
+                &lt;input type="checkbox" /&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/div&gt;</pre>
+                <p><strong>步骤二：本地模拟商品数据</strong></p>
+                <p>每一个Vue实例都可以通过data选项来定义响应式数据，当数据发生变化时，视图也会随之改变。这也正是Vue的核心——数据驱动，你再也不必去使用耗费性能的DOM操作，只需要维护好你的数据即可。</p>
+                <pre>
+const vm = new Vue({
+    el:"#app",
+    data:{
+        //商品列表
+        products: [
+            { name: "JavaScript权威指南", price: 100, count: 0, select: true },
+            { name: "JavaScript高级程序设计", price: 80, count: 0, select: true },
+            { name: "JavaScript语言精粹", price: 30, count: 0, select: true },
+            { name: "JavaScript设计模式", price: 60, count: 0, select: true },
+            { name: "你不知道的JavaScript", price: 200, count: 0, select: true }
+        ]
+    }
+}) 
+</pre>
+                <p>定义好数据之后，便可以使用小胡子语法{{}}将绑定的数据实时显示出来。</p>
+                <p><strong>步骤三：循环渲染商品列表</strong></p>
+                <p>Vue允许你使用v-for指令来循环渲染一组元素，并且通过v-model指令可以实现在表单元素上双向绑定数据。</p>
+                <pre>
+&lt;div id="app"&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;th&gt;id&lt;/th&gt;
+            &lt;th&gt;商品名称&lt;/th&gt;
+            &lt;th&gt;商品单价&lt;/th&gt;
+            &lt;th&gt;购买数量&lt;/th&gt;
+            &lt;th&gt;操作&lt;/th&gt;
+            &lt;th&gt;
+                &lt;input type="checkbox" /&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr v-for="(product,index) in products" :key="index"&gt;
+            &lt;td&gt;{{index+1}}&lt;/td&gt;
+            &lt;td&gt;{{product.name}}&lt;/td&gt;
+            &lt;td&gt;{{product.price}}&lt;/td&gt;
+            &lt;td&gt;
+                &lt;button&gt;-&lt;/button&gt;{{product.count}}
+                &lt;button&gt;+&lt;/button&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;button&gt;remove&lt;/button&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type="checkbox" v-model="product.select"&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/div&gt;</pre>
+                <p><strong>步骤四：事件绑定</strong></p>
+                <p>Vue中，使用v-on指令（简写为@）来绑定事件，便于维护可读，一般将事件处理函数写在Vue实例的methods选项内。</p>
+                <p>
+                    <ul>
+                        <li>为增减功能按钮绑定事件，并且当数量为0时，不可以再进行减少</li>
+                        <li>为移除按钮绑定事件</li>
+                    </ul>
+                </p>
+                <pre>
+&lt;div id="app"&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;th&gt;id&lt;/th&gt;
+            &lt;th&gt;商品名称&lt;/th&gt;
+            &lt;th&gt;商品单价&lt;/th&gt;
+            &lt;th&gt;购买数量&lt;/th&gt;
+            &lt;th&gt;操作&lt;/th&gt;
+            &lt;th&gt;
+                &lt;input type="checkbox" /&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr v-for="(product,index) in products" :key="index"&gt;
+            &lt;td&gt;{{index+1}}&lt;/td&gt;
+            &lt;td&gt;{{product.name}}&lt;/td&gt;
+            &lt;td&gt;{{product.price}}&lt;/td&gt;
+            &lt;td&gt;
+                &lt;button @click="reduce(index)" &gt;-&lt;/button&gt;{{product.count}}
+                &lt;button @click="add(index)" &gt;+&lt;/button&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;button @click="remove(index)" &gt;remove&lt;/button&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type="checkbox" v-model="product.select"&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/div&gt;</pre>
+                <pre>
+const vm = new Vue({
+    el:"#app",
+    data:{
+        //商品列表
+        products: [
+            { name: "JavaScript权威指南", price: 100, count: 0, select: true },
+            { name: "JavaScript高级程序设计", price: 80, count: 0, select: true },
+            { name: "JavaScript语言精粹", price: 30, count: 0, select: true },
+            { name: "JavaScript设计模式", price: 60, count: 0, select: true },
+            { name: "你不知道的JavaScript", price: 200, count: 0, select: true }
+        ]
+    },
+    methods:{
+        // 数量+1
+        add(index) {
+            this.products[index].count++
+        },
+        // 数量-1
+        reduce(index) {
+            this.products[index].count--
+        },
+        // 移除该项
+        remove(index) {
+            this.products.splice(index, 1)
+        }
+    }
+}) 
+            </pre>
+                <p><strong>步骤五：使用计算属性</strong></p>
+                <p>Vue中，计算属性写在computed中，常用来完成各种复杂逻辑，包括依赖多个数据。只要其中任一数据变化，计算属性便会重新执行，并更新视图</p>
+                <p>
+                    <ul>
+                        <li>实现单选和全选</li>
+                        <li>实现计算总价</li>
+                    </ul>
+                </p>
+                <pre>
+&lt;div id="app"&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;th&gt;id&lt;/th&gt;
+            &lt;th&gt;商品名称&lt;/th&gt;
+            &lt;th&gt;商品单价&lt;/th&gt;
+            &lt;th&gt;购买数量&lt;/th&gt;
+            &lt;th&gt;操作&lt;/th&gt;
+            &lt;th&gt;
+                &lt;input type="checkbox" /&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr v-for="(product,index) in products" :key="index"&gt;
+            &lt;td&gt;{{index+1}}&lt;/td&gt;
+            &lt;td&gt;{{product.name}}&lt;/td&gt;
+            &lt;td&gt;{{product.price}}&lt;/td&gt;
+            &lt;td&gt;
+                &lt;button @click="reduce(index)" &gt;-&lt;/button&gt;{{product.count}}
+                &lt;button @click="add(index)" &gt;+&lt;/button&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;button @click="remove(index)" &gt;remove&lt;/button&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type="checkbox" v-model="product.select"&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;p&gt;总价：￥{{getTotal}}&lt;/p&gt;
+&lt;/div&gt;</pre>
+            <pre>
+const vm = new Vue({
+    el:"#app",
+    data:{
+        //商品列表
+        products: [
+            { name: "JavaScript权威指南", price: 100, count: 0, select: true },
+            { name: "JavaScript高级程序设计", price: 80, count: 0, select: true },
+            { name: "JavaScript语言精粹", price: 30, count: 0, select: true },
+            { name: "JavaScript设计模式", price: 60, count: 0, select: true },
+            { name: "你不知道的JavaScript", price: 200, count: 0, select: true }
+        ]
+    },
+    methods:{
+        // 数量+1
+        add(index) {
+            this.products[index].count++
+        },
+        // 数量-1
+        reduce(index) {
+            this.products[index].count--
+        },
+        // 移除该项
+        remove(index) {
+            this.products.splice(index, 1)
+        }
+    },
+    computed: {
+    	// 获取总价
+    	getTotal() {
+    		return this.products.reduce((total, current) => total + (current.select ? current.price * current.count : 0), 0)
+		},
+         // 是否选择所有
+         getSelectAllFlag: {
+             get() {
+    			return this.products.every(val => val.select)
+             },
+             set(val) {
+                 val && this.products.forEach(element => element.select = true)
+                 !val && this.products.forEach(element => element.select = false)
+             }
+		}
+	}
+})</pre>
+            <p><strong>步骤六：优化完善</strong></p>
+            <p>通过v-if指令增加无商品时的状态</p>
+            <pre>
+&lt;div id="app"&gt;
+&lt;template v-if="products.length > 0"&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;th&gt;id&lt;/th&gt;
+            &lt;th&gt;商品名称&lt;/th&gt;
+            &lt;th&gt;商品单价&lt;/th&gt;
+            &lt;th&gt;购买数量&lt;/th&gt;
+            &lt;th&gt;操作&lt;/th&gt;
+            &lt;th&gt;
+                &lt;input type="checkbox" /&gt;
+            &lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr v-for="(product,index) in products" :key="index"&gt;
+            &lt;td&gt;{{index+1}}&lt;/td&gt;
+            &lt;td&gt;{{product.name}}&lt;/td&gt;
+            &lt;td&gt;{{product.price}}&lt;/td&gt;
+            &lt;td&gt;
+                &lt;button @click="reduce(index)" &gt;-&lt;/button&gt;{{product.count}}
+                &lt;button @click="add(index)" &gt;+&lt;/button&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;button @click="remove(index)" &gt;remove&lt;/button&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type="checkbox" v-model="product.select"&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;p&gt;总价：￥{{getTotal}}&lt;/p&gt;
+&lt;/template&gt;
+&lt;div v-else&gt;购物车为空&lt;/div&gt;
+&lt;/div&gt;</pre>
+            <p>至此，购物车的基本功能已经完成了。</p>
+            <h4 class="h4">效果展示</h4>
+            <img src="http://otjjz0nqd.bkt.clouddn.com/op.gif" alt="op" class="img-responsive">
+            <h4 class="h4">总结展望</h4>
+            <p>通过购物车案例，你可能已经感受到Vue的强大之处。但是还不止这些，对于企业级项目你可能需要：</p>
+            <p>
+                <ul>
+                    <li>vue-cli脚手架进行组件开发</li>
+                    <li>vue-cli脚手架进行组件开发</li>
+                    <li>vue-cli脚手架进行组件开发</li>
+                    <li>vue-native开发原生应用</li>
+                    <li>...</li>
+                </ul>
+            </p>
+            <p>对了，vue-cli3.0也出了，附带一个完整的GUI来管理项目中的任务和插件，虽然还处于beta阶段，但是值得一试。</p>
+            </div>
+        </div>
+    </div>
+    <!-- comment -->
+    <div class="comment">
+        <div class="container">
+            <!-- all-comments -->
+            <div class="all-comments">
+                <!-- title -->
+                <h3 class="h4 comment-title">全部评论</h3>
+                <!-- discuss -->
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object" src="./images/touxiang.png" alt="avatar" width="22">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading h5">Linux Story / 2017-08-22 / 14:43</h4>
+                        <p class="h5">在一些工具类型的应用中尤其会遇到这个问题，结合场景，在用户需要的时候展示一个商业化的功能，是不会影响用户体验的。比如定完机票，展示一个预约接送机的功能；购买完团购卷展示一个能订位的APP；
+                            产品的商业化不是必然会影响到用户体验，关键是给用户呈现的商业化对用户而言是不是有价值
+                        </p>
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object" src="./images/touxiang.png" alt="avatar" width="22">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading h5">Linux Story / 2017-08-22 / 14:43</h4>
+                        <p class="h5">在一些工具类型的应用中尤其会遇到这个问题，结合场景，在用户需要的时候展示一个商业化的功能，是不会影响用户体验的。比如定完机票，展示一个预约接送机的功能；购买完团购卷展示一个能订位的APP；
+                            产品的商业化不是必然会影响到用户体验，关键是给用户呈现的商业化对用户而言是不是有价值
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- post comment -->
+            <div class="post-comment">
+                <h3 class="h4">发表评论</h3>
+                <form>
+                    <textarea class="form-control" rows="3" placeholder="评论"></textarea>
+                    <input type="text" class="form-control" placeholder="姓名">
+                    <button type="submit" class="btn btn-default btn-block h5">发表评论</button>
+                </form>
+            </div>
+            <!-- prev next -->
+            <div class="change">
+                <a href="./detail.html" class="h5">上篇：交互设计中的默认值</a>
+                <a href="./detail.html" class="h5">下篇：阅读好体验的准则：100% Easy-2-Read</a>
+            </div>
+        </div>
+    </div>
+    <!-- bottom -->
+    <div class="bottom" style="border-top: 1px solid #ddd;">
+        <!-- bottom-tab -->
+        <ul class="bottom-tab hidden-xs">
+            <li><a href="./index.html" class="h6"><span class="text-uppercase">home</span><br>首页</a></li>
+            <li><a href="./article.html" class="h6"><span class="text-uppercase">article</span><br>文章</a></li>
+            <li><a href="./about.html" class="h6"><span class="text-uppercase">about</span><br>关于</a></li>
+            <li><a href="./brand.html" class="h6"><span class="text-uppercase">source</span><br>资源</a></li>
+            <li><a href="./recruit.html" class="h6"><span class="text-uppercase">recruit</span><br>招聘</a></li>
+            <li><a href="./login.html" class="h6"><span class="text-uppercase">login</span><br>登录</a></li>
+        </ul>
+        <!-- back to top -->
+        <div class="back-top">
+            <a href="#" class="btn btn-default glyphicon glyphicon-menu-up"></a>
+        </div>
+        <!-- copyright -->
+        <p class="copyright h6 text-center">2014 All rights reserved. 青岛轮子软件科技有限公司 版权所有 法律声明 鲁ICP备14035434号-1</p>
+    </div>
+    <script src="./lib/jquery/jquery.min.js"></script>
+    <script src="./lib/bootstrap/bootstrap.min.js"></script>
+    <script src="./js/backtop.js"></script>
+    <script src="./js/detail.js"></script>
+</body>
+
+</html>
